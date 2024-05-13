@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Clonar Repositorio') {
+            steps {
+                git 'https://github.com/tu_usuario/tu_repositorio.git'
+            }
+        }
+        
+        stage('Compilar') {
+            steps {
+                sh 'javac src/main/java/HelloWorld.java'
+            }
+        }
+        
+        stage('Pruebas') {
+            steps {
+                sh 'javac -cp .:src/test/java/junit-4.XX.jar src/test/java/HelloWorldTest.java'
+                sh 'java -cp .:src/test/java:junit-4.XX.jar org.junit.runner.JUnitCore HelloWorldTest'
+            }
+        }
+    }
+}
